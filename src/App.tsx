@@ -1,17 +1,31 @@
 import * as React from "react";
-import { CAN, CHI, MONTHS } from "./Constants";
-import { convertSolar2Lunar } from "lunardate";
+import {
+  CAN,
+  CHI,
+  MONTHS,
+  SEASONS
+  } from "./Constants";
+import { convertSolar2Lunar, LunarDate, sunLongitude } from "lunardate";
 import "./scss/App.css";
+interface ICalendarDate {
+  date : Date;
+  lunar : LunarDate
+}
 interface IAppState {
   selectedDate : Date;
+  dates : ICalendarDate[]
 }
 class App extends React.Component < {},
 IAppState > {
   constructor(props : any) {
     super(props);
     this.state = {
+      dates: this.generateDates(),
       selectedDate: new Date()
     }
+  }
+  public generateDates() {
+    return []
   }
   public render() {
     const selectedDate = this.state.selectedDate;
@@ -30,6 +44,7 @@ IAppState > {
     const jd = this.jdFromDate(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear());
     const thang = CAN[(ln.year * 12 + ln.month + 3) % 10] + " " + CHI[(ln.month + 1) % 12];
     const ngay = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
+    const tk = SEASONS[Math.floor(sunLongitude(jd - 0.5 - 7 / 24.0) / (Math.PI * 12))]
     return (
       <div className="app">
         <div className="calendar">
@@ -42,18 +57,23 @@ IAppState > {
             <span className="calendar--day--weekday">{dayOfWeeks[selectedDate.getDay()]}</span>
           </div>
           <div className="calendar--lunar">
-            < div className="calendar--lunar--date">
-              <div>Tháng {MONTHS[ln.month - 1]}</div>
-              <div>{ln.day}</div>
-              <div>Năm {this.getYearCanChi(ln.year)}</div>
-            </div >
-            < div className="calendar--lunar--info">
-              <div>Tháng {thang}</div>
-              <div>Tháng {ngay}</div>
-              <div>
-                Giờ {this.getCanHour0(jd) + " " + CHI[selectedDate.getHours() % 12]}
-              </div>
-            </ div>
+            <div className="row">
+              < div className="calendar--lunar--date">
+                <div>Tháng {MONTHS[ln.month - 1]}</div>
+                <div>{ln.day}</div>
+                <div>Năm {this.getYearCanChi(ln.year)}</div>
+              </div >
+              < div className="calendar--lunar--info">
+                <div>Tháng {thang}</div>
+                <div>Ngày {ngay}</div>
+                <div>
+                  Giờ {this.getCanHour0(jd) + " " + CHI[selectedDate.getHours() % 12]}
+                </div>
+                < div >
+                  Tiết {tk}
+                </div>
+              </ div>
+            </div>
             <div className="calendar--lunar--perfect-hours">
               Giờ hoàng đạo : {this.getGioHoangDao(jd)}
             </div>

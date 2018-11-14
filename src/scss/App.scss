@@ -32,6 +32,7 @@
 
   &--lunar {
     width: 100%;
+    margin-top: 1em;
 
     &--date {
       float: left;
@@ -39,14 +40,19 @@
 
     }
 
-    &--ìnfo {
+    &--info {
       float: left;
       width: 50%;
-
     }
 
     &--perfect-hours {
+      width: 100%;
       margin-top: 1em;
     }
   }
+}
+
+.row {
+  width: 100%;
+  overflow: auto;
 }

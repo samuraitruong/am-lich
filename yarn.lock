@@ -5195,10 +5195,10 @@ lru-cache@^4.0.1, lru-cache@^4.1.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-lunardate@^1.0.9:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/lunardate/-/lunardate-1.0.8.tgz#3bcf3a1aea67cb50f648d4ad9a0166da6ee29e79"
-  integrity sha512-XHHNfzT1iukjROOcNv+y9IrwjX/mjxfDO/YDsSr7OfufZ6t+J+DIirOuTdTRyLy8fDTyGQfITfMteqfR8DHbBg==
+lunardate@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/lunardate/-/lunardate-1.0.11.tgz#8dd66e478f6bd28f4bfb2a0319adf36641df92cb"
+  integrity sha512-PmaGsyO0i78Vtedwu5iBV00R+SCNlqn56yN2/ykFTWNyHzoR5kIipFNa1NwhotPGzrpCo/GZ0bWocUhg9MBMiw==
 
 make-dir@^1.0.0:
   version "1.3.0"
