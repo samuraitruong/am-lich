@@ -1,0 +1,9 @@
+.calendar-table {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    >div {
+        width: 14%;
+    }
+}
