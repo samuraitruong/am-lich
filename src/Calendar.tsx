@@ -37,7 +37,7 @@ export default class Calendar extends React.Component<ICalendarProps, ICalendarS
             })
             console.log(currentDate);
         }
-        return list;
+        return list;// .slice(0, list.length - 1);
     }
     public onDateSelected(date: Date) {
         this.props.onDateChanged(date);

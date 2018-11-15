@@ -27,6 +27,7 @@
   &--day {
     font-size: 7rem;
     margin-top: 1rem;
+    font-weight: 600;
 
     &--weekday {
       font-size: 3rem;
@@ -44,10 +45,9 @@
       width: 50%;
 
       >div {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        margin-top: 0.35rem;
+        margin-bottom: 0.35rem;
       }
-
     }
 
     &--info {
@@ -55,8 +55,8 @@
       width: 50%;
 
       >div {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        margin-top: 0.35rem;
+        margin-bottom: 0.35rem;
       }
     }
 
@@ -75,4 +75,8 @@
 .mg {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.font-medium {
+  font-size: 3.5rem;
 }

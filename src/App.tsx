@@ -57,7 +57,7 @@ class App extends React.Component<{},
             <div className="row">
               < div className="calendar--lunar--date">
                 <div>Tháng {MONTHS[ln.month - 1]}</div>
-                <div>{ln.day}</div>
+                <div className="font-medium">{ln.day}</div>
                 <div>Năm {this.getYearCanChi(ln.year)}</div>
               </div >
               < div className="calendar--lunar--info">
