@@ -10,17 +10,22 @@
 .calendar {
   max-width: 800px;
   width: 500px;
-  min-height: 800px;
+  min-height: 500px;
   box-shadow: 5px 011px 15px 1px rgba(0, 0, 0, 0.83);
   padding: 1.5rem;
+  padding-bottom: 3rem;
   background: #fff;
+
+  &__red {
+    color: #cf2020;
+  }
 
   &--header {
     font-size: 3rem;
   }
 
   &--day {
-    font-size: 5rem;
+    font-size: 7rem;
     margin-top: 1rem;
 
     &--weekday {
@@ -38,11 +43,21 @@
       float: left;
       width: 50%;
 
+      >div {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
     }
 
     &--info {
       float: left;
       width: 50%;
+
+      >div {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
     }
 
     &--perfect-hours {
@@ -55,4 +70,9 @@
 .row {
   width: 100%;
   overflow: auto;
+}
+
+.mg {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }

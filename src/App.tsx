@@ -19,11 +19,14 @@ class App extends React.Component<{},
     this.state = {
       selectedDate: new Date()
     }
+    this.onDateChanged = this.onDateChanged.bind(this);
+  }
+  public onDateChanged(selectedDate: Date) {
+    this.setState({ selectedDate: new Date(selectedDate) })
   }
   public render() {
     const selectedDate = this.state.selectedDate;
     const ln = convertSolar2Lunar(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear(), 7);
-    console.log(ln.toDate);
     const dayOfWeeks = [
       "Chủ nhật",
       "Thứ hai",
@@ -37,10 +40,11 @@ class App extends React.Component<{},
     const jd = this.jdFromDate(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear());
     const thang = CAN[(ln.year * 12 + ln.month + 3) % 10] + " " + CHI[(ln.month + 1) % 12];
     const ngay = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
-    const tk = SEASONS[Math.floor(sunLongitude(jd - 0.5 - 7 / 24.0) as number / (Math.PI * 12))]
+    const tk = SEASONS[Math.floor(sunLongitude(jd - 0.5 - 7 / 24.0) as number / (Math.PI * 12))];
+    const className = this.state.selectedDate.getDay() === 0 ? "calendar__red" : ""
     return (
       <div className="app">
-        <div className="calendar">
+        <div className={"calendar " + className}>
           <div className="calendar--header">
             Tháng {selectedDate.getMonth() + 1}
             năm {selectedDate.getFullYear()}
@@ -71,7 +75,8 @@ class App extends React.Component<{},
               Giờ hoàng đạo : {this.getGioHoangDao(jd)}
             </div>
 
-            <Calendar />
+            <Calendar onDateChanged={this.onDateChanged} selectedDate={selectedDate
+            } />
           </div>
         </div>
       </div>

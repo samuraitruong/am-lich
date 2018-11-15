@@ -8,8 +8,12 @@ interface ICalendarDate {
     date: Date;
     lunar?: LunarDate
 }
-export default class Calendar extends React.Component<{}, ICalendarState> {
-    constructor(props: any) {
+interface ICalendarProps {
+    onDateChanged: (date: Date) => void;
+    selectedDate: Date
+}
+export default class Calendar extends React.Component<ICalendarProps, ICalendarState> {
+    constructor(props: ICalendarProps) {
         super(props);
         this.state = {
             dates: this.getDates(new Date())
@@ -27,26 +31,33 @@ export default class Calendar extends React.Component<{}, ICalendarState> {
         let currentDate = this.getMonday(new Date(date.getFullYear(), date.getMonth(), 1));
 
         while (currentDate.getMonth() <= date.getMonth()) {
-            list.push({
-                date: currentDate,
-            })
             currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+            list.push({
+                date: new Date(currentDate),
+            })
             console.log(currentDate);
-
         }
         return list;
     }
+    public onDateSelected(date: Date) {
+        this.props.onDateChanged(date);
+    }
+
     public render() {
         return (
             <div className="calendar-table">
-                <div>T2</div>
-                <div>T3</div>
-                <div>T4</div>
-                <div>T5</div>
-                <div>T6</div>
-                <div>T7</div>
-                <div>CN</div>
-                {this.state.dates.map((x) => <div key={x.date.getTime()}> {x.date.getDate()}</div>)}
+                <div className="calendar-table--cell calendar-table--cell__dark">T2</div>
+                <div className="calendar-table--cell calendar-table--cell__dark">T3</div>
+                <div className="calendar-table--cell calendar-table--cell__dark">T4</div>
+                <div className="calendar-table--cell calendar-table--cell__dark">T5</div>
+                <div className="calendar-table--cell calendar-table--cell__dark">T6</div>
+                <div className="calendar-table--cell calendar-table--cell__dark">T7</div>
+                <div className="calendar-table--cell calendar-table--cell__dark calendar-table--cell__red">CN</div>
+                {this.state.dates.map((x) =>
+                    <div onClick={this.onDateSelected.bind(this, x.date)}
+                        className={"calendar-table--cell" + (this.props.selectedDate.getDate() === x.date.getDate() ? " calendar-table--cell__selected" : "") +
+                            (x.date.getDay() === 0 ? " calendar-table--cell__red" : "")
+                        } key={x.date.getTime()}> {x.date.getDate()}</div>)}
             </div>
         )
     }
