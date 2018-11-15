@@ -2,6 +2,7 @@
   "name": "am-lich",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://samuraitruong.github.io/am-lich/",
   "dependencies": {
     "lunardate": "^1.0.12",
     "react": "^16.6.1",
