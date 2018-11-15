@@ -1,3 +1,5 @@
+$red: rgb(243, 31, 31);
+
 .calendar-table {
     margin-top: 1rem;
     display: flex;
@@ -12,6 +14,10 @@
         cursor: pointer;
         color: #444;
 
+        &__out-of-range {
+            color: #999;
+        }
+
         &__dark {
             background: #ccc;
             color: #444;
@@ -25,11 +31,34 @@
         }
 
         &__red {
-            color: rgb(243, 31, 31);
+            color: $red
         }
 
         &:hover {
             background: #eee;
+        }
+
+        &--lunar {
+            width: 100%;
+            display: block;
+            text-align: right;
+            color: #222;
+            font-size: 0.9rem;
+
+            &__red {
+                color: $red
+            }
+        }
+
+        &--solar {
+            font-size: 1.5rem;
+            text-align: left;
+            width: 100%;
+            display: block;
+
+            &__red {
+                color: $red
+            }
         }
     }
 }
