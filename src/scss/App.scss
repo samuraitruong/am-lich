@@ -9,7 +9,7 @@
   height: 100%;
 
   @include breakpoint(mobileonly) {
-    height: auto;
+    xheight: auto;
   }
 }
 
@@ -24,6 +24,7 @@
 
   @include breakpoint(mobileonly) {
     padding: 0.25rem;
+    height: 100%;
   }
 
   &__red {
@@ -32,20 +33,21 @@
 
   &--header {
     font-size: 3rem;
+    display: flex;
+    justify-content: space-between;
 
     @include breakpoint(mobileonly) {
       font-size: 2.1rem;
+      padding-top: 0.75rem;
     }
 
     &--icon {
-      margin: -5px;
-      width: 46px;
+      height: 58px;
       opacity: 0.35;
       transition: 500ms all linear;
 
       @include breakpoint(mobileonly) {
-        margin: -15px;
-        width: 60px;
+        margin-top: -10px;
       }
 
       cursor: pointer;
