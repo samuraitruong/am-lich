@@ -1,4 +1,5 @@
 $red: rgb(243, 31, 31);
+@import "./share";
 
 .calendar-table {
     margin-top: 1rem;
@@ -7,7 +8,7 @@ $red: rgb(243, 31, 31);
 
     &--cell {
         box-sizing: border-box;
-        width: 14%;
+        width: (100%/7);
         height: 50px;
         padding: 5px;
         border: solid 1px #eee;
@@ -15,7 +16,12 @@ $red: rgb(243, 31, 31);
         color: #444;
 
         &__out-of-range {
-            color: #999;
+            color: #bbb !important;
+            cursor: default;
+
+            span {
+                color: #bbb !important;
+            }
         }
 
         &__dark {
