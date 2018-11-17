@@ -1,4 +1,5 @@
 $red: rgb(243, 31, 31);
+@import "./share";
 
 .calendar-table {
     margin-top: 1rem;
@@ -7,7 +8,7 @@ $red: rgb(243, 31, 31);
 
     &--cell {
         box-sizing: border-box;
-        width: 14%;
+        width: (100%/7);
         height: 50px;
         padding: 5px;
         border: solid 1px #eee;
