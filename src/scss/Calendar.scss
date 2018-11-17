@@ -6,6 +6,10 @@ $red: rgb(243, 31, 31);
     display: flex;
     flex-wrap: wrap;
 
+    @include breakpoint(mobileonly) {
+        margin-top: 0.35rem;
+    }
+
     &--cell {
         box-sizing: border-box;
         width: (100%/7);
@@ -14,6 +18,10 @@ $red: rgb(243, 31, 31);
         border: solid 1px #eee;
         cursor: pointer;
         color: #444;
+
+        @include breakpoint(mobileonly) {
+            height: 42px;
+        }
 
         &__out-of-range {
             color: #bbb !important;
@@ -51,6 +59,10 @@ $red: rgb(243, 31, 31);
             color: #222;
             font-size: 0.9rem;
 
+            @include breakpoint(mobileonly) {
+                font-size: 0.7rem;
+            }
+
             &__red {
                 color: $red
             }
@@ -61,6 +73,10 @@ $red: rgb(243, 31, 31);
             text-align: left;
             width: 100%;
             display: block;
+
+            @include breakpoint(mobileonly) {
+                font-size: 1.2rem;
+            }
 
             &__red {
                 color: $red
