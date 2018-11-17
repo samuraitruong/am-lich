@@ -22,6 +22,20 @@
 
   &--header {
     font-size: 3rem;
+
+    &--icon {
+      margin: -5px;
+      width: 46px;
+      opacity: 0.35;
+      transition: 500ms all linear;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+      path {
+        fill: #cf2020;
+      }
+    }
   }
 
   &--day {
@@ -44,7 +58,7 @@
       float: left;
       width: 50%;
 
-      >div {
+      > div {
         margin-top: 0.35rem;
         margin-bottom: 0.35rem;
       }
@@ -54,7 +68,7 @@
       float: left;
       width: 50%;
 
-      >div {
+      > div {
         margin-top: 0.35rem;
         margin-bottom: 0.35rem;
       }

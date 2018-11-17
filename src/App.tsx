@@ -1,5 +1,7 @@
 import * as React from "react";
 import Calendar from "./Calendar";
+import leftIcon from "./images/if_basics-05_296830.svg";
+import rightIcon from "./images/if_basics-06_296832.svg";
 import {
   CAN,
   CHI,
@@ -8,7 +10,6 @@ import {
   } from "./Constants";
 import { convertSolar2Lunar, sunLongitude } from "lunardate";
 import "./scss/App.css";
-
 interface IAppState {
   selectedDate : Date;
 }
@@ -26,8 +27,15 @@ IAppState > {
   public onDateChanged(selectedDate : Date) {
     this.setState({selectedDate: new Date(selectedDate)})
   }
+  public changeMonth(increase : number) {
+    const selectedDate = new Date(this.state.selectedDate.setMonth(this.state.selectedDate.getMonth() + increase));
+    this.setState({
+      selectedDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
+    });
+  }
   public render() {
     const selectedDate = this.state.selectedDate;
+    console.log("selected date", selectedDate);
     const ln = convertSolar2Lunar(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear(), 7);
     const dayOfWeeks = [
       "Chủ nhật",
@@ -53,8 +61,25 @@ IAppState > {
       <div className="app">
         <div className={"calendar " + className}>
           <div className="calendar--header">
+            < span >
+              <img
+                className="calendar--header--icon"
+                src={leftIcon}
+                onClick={this
+                .changeMonth
+                .bind(this, -1)}/>
+            </span>
+
             Tháng {selectedDate.getMonth() + 1}
             năm {selectedDate.getFullYear()}
+            <span>
+              <img
+                src={rightIcon}
+                className="calendar--header--icon"
+                onClick={this
+                .changeMonth
+                .bind(this, 1)}/>
+            </span>
           </div>
           <div className="calendar--day">
             {selectedDate.getDate()}
@@ -70,6 +95,7 @@ IAppState > {
               < div className="calendar--lunar--info">
                 <div>Tháng {thang}</div>
                 <div>Ngày {ngay}</div>
+
                 <div>
                   Giờ {this.getCanHour0(jd) + " " + CHI[selectedDate.getHours() % 12]}
                 </div>

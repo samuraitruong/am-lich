@@ -15,7 +15,12 @@ $red: rgb(243, 31, 31);
         color: #444;
 
         &__out-of-range {
-            color: #999;
+            color: #bbb !important;
+            cursor: default;
+
+            span {
+                color: #bbb !important;
+            }
         }
 
         &__dark {
