@@ -2,49 +2,54 @@ import * as React from "react";
 import { convertSolar2Lunar, LunarDate } from "lunardate";
 import "./scss/Calendar.css";
 interface ICalendarState {
-    dates : ICalendarDate[]
+    dates: ICalendarDate[]
 }
 interface ICalendarDate {
-    date : Date;
+    date: Date;
     lunar?: LunarDate
 }
 interface ICalendarProps {
-    onDateChanged : (date : Date) => void;
-    selectedDate : Date
+    onDateChanged: (date: Date) => void;
+    selectedDate: Date
 }
-export default class Calendar extends React.Component < ICalendarProps,
-ICalendarState > {
-    constructor(props : ICalendarProps) {
+export default class Calendar extends React.Component<ICalendarProps,
+    ICalendarState> {
+    constructor(props: ICalendarProps) {
         super(props);
         this.state = {
             dates: this.getDates(new Date())
         }
     }
-    public getMonday(d : Date) {
-        d = new Date(d.getFullYear(), d.getMonth(), 1);
-        const day = d.getDay();
-        const diff = d.getDate() - day + (day === 0
-            ? -6
-            : 0); // adjust when day is sunday
-        return new Date(d.setDate(diff));
+    public getMonday(d: Date): Date {
+        if (d.getDay() === 1) {
+            return d;
+        }
+        d = new Date(d.setDate(d.getDate() - 1));
+        return this.getMonday(d);
+        // const day = d.getDay();
+        // const diff = d.getDate() - day + (day === 0
+        //     ? -6
+        //     : 0); // adjust when day is sunday
+        // return new Date(d.setDate(diff));
     }
 
-    public getDates(date : Date) : ICalendarDate[] {
-        const list : ICalendarDate[] = [];
+    public getDates(date: Date): ICalendarDate[] {
+        const list: ICalendarDate[] = [];
         let currentDate = this.getMonday(new Date(date.getFullYear(), date.getMonth(), 1));
+        const checkedDate = new Date(currentDate);
 
-        while (currentDate.getMonth() <= date.getMonth()) {
+        while (currentDate.getMonth() !== date.getMonth() || currentDate < checkedDate) {
             currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-            list.push({date: new Date(currentDate)})
+            list.push({ date: new Date(currentDate) })
         }
         return list; // .slice(0, list.length - 1);
     }
-    public onDateSelected(date : Date) {
+    public onDateSelected(date: Date) {
         this
             .props
             .onDateChanged(date);
     }
-    public renderDate(date : Date) {
+    public renderDate(date: Date) {
         const lunar = convertSolar2Lunar(date.getDate(), date.getMonth() + 1, date.getFullYear(), 7);
         const className = date.getDay() === 0
             ? "__red"
@@ -74,16 +79,16 @@ ICalendarState > {
                     .dates
                     .map((x) => <div
                         onClick={this
-                        .onDateSelected
-                        .bind(this, x.date)}
+                            .onDateSelected
+                            .bind(this, x.date)}
                         className={"calendar-table--cell" + (this.props.selectedDate.getDate() === x.date.getDate()
-                        ? " calendar-table--cell__selected"
-                        : "") + (x.date.getDay() === 0
-                        ? " calendar-table--cell__red"
-                        : "")}
+                            ? " calendar-table--cell__selected"
+                            : "") + (x.date.getDay() === 0
+                                ? " calendar-table--cell__red"
+                                : "")}
                         key={x
-                        .date
-                        .getTime()}>
+                            .date
+                            .getTime()}>
                         {this.renderDate(x.date)}
                     </div>)}
             </div>
