@@ -57,27 +57,19 @@ export default class Calendar extends React.Component<ICalendarProps,
 
         return list; // .slice(0, list.length - 1);
     }
-<<<<<<< HEAD
     public onDateSelected(date: Date) {
-=======
-    public onDateSelected(date : Date) {
         if (date.getMonth() !== this.props.selectedDate.getMonth()) {
             return;
         }
->>>>>>> 08f921cdfb2a253d7d6680933e6aeaecff4acc19
         this
             .props
             .onDateChanged(date);
     }
-<<<<<<< HEAD
-    public renderDate(date: Date) {
-=======
-    public componentWillReceiveProps(props : ICalendarProps) {
+    public componentWillReceiveProps(props: ICalendarProps) {
         const dates = this.getDates(props.selectedDate);
-        this.setState({dates});
+        this.setState({ dates });
     }
-    public renderDate(date : Date) {
->>>>>>> 08f921cdfb2a253d7d6680933e6aeaecff4acc19
+    public renderDate(date: Date) {
         const lunar = convertSolar2Lunar(date.getDate(), date.getMonth() + 1, date.getFullYear(), 7);
         const className = date.getDay() === 0
             ? "__red"
@@ -110,19 +102,12 @@ export default class Calendar extends React.Component<ICalendarProps,
                             .onDateSelected
                             .bind(this, x.date)}
                         className={"calendar-table--cell" + (this.props.selectedDate.getDate() === x.date.getDate()
-<<<<<<< HEAD
                             ? " calendar-table--cell__selected"
                             : "") + (x.date.getDay() === 0
                                 ? " calendar-table--cell__red"
-                                : "")}
-=======
-                        ? " calendar-table--cell__selected"
-                        : "") + (x.date.getDay() === 0
-                        ? " calendar-table--cell__red"
-                        : "") + (x.date.getMonth() !== this.props.selectedDate.getMonth()
-                        ? " calendar-table--cell__out-of-range"
-                        : "")}
->>>>>>> 08f921cdfb2a253d7d6680933e6aeaecff4acc19
+                                : "") + (x.date.getMonth() !== this.props.selectedDate.getMonth()
+                                    ? " calendar-table--cell__out-of-range"
+                                    : "")}
                         key={x
                             .date
                             .getTime()}>
