@@ -7,15 +7,15 @@ import {
   CHI,
   MONTHS,
   SEASONS
-} from "./Constants";
+  } from "./Constants";
 import { convertSolar2Lunar, sunLongitude } from "lunardate";
 import "./scss/App.css";
 interface IAppState {
-  selectedDate: Date;
+  selectedDate : Date;
 }
-class App extends React.Component<{},
-  IAppState> {
-  constructor(props: any) {
+class App extends React.Component < {},
+IAppState > {
+  constructor(props : any) {
     super(props);
     this.state = {
       selectedDate: new Date()
@@ -24,10 +24,10 @@ class App extends React.Component<{},
       .onDateChanged
       .bind(this);
   }
-  public onDateChanged(selectedDate: Date) {
-    this.setState({ selectedDate: new Date(selectedDate) })
+  public onDateChanged(selectedDate : Date) {
+    this.setState({selectedDate: new Date(selectedDate)})
   }
-  public changeMonth(increase: number) {
+  public changeMonth(increase : number) {
     const selectedDate = new Date(this.state.selectedDate.setMonth(this.state.selectedDate.getMonth() + increase));
     this.setState({
       selectedDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
@@ -50,7 +50,7 @@ class App extends React.Component<{},
     const jd = this.jdFromDate(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear());
     const thang = CAN[(ln.year * 12 + ln.month + 3) % 10] + " " + CHI[(ln.month + 1) % 12];
     const ngay = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
-    const tk = SEASONS[Math.floor(sunLongitude(jd - 0.5 - 7 / 24.0) as number / (Math.PI * 12))];
+    const tk = SEASONS[Math.floor(sunLongitude(jd - 0.5 - 7 / 24.0)as number / (Math.PI * 12))];
     const className = this
       .state
       .selectedDate
@@ -66,16 +66,14 @@ class App extends React.Component<{},
               className="calendar--header--icon"
               src={leftIcon}
               onClick={this
-                .changeMonth
-                .bind(this, -1)} />
-
-            {title}
+              .changeMonth
+              .bind(this, -1)}/> {title}
             <img
               src={rightIcon}
               className="calendar--header--icon"
               onClick={this
-                .changeMonth
-                .bind(this, 1)} />
+              .changeMonth
+              .bind(this, 1)}/>
           </div>
           <div className="calendar--day">
             {selectedDate.getDate()}
@@ -104,13 +102,13 @@ class App extends React.Component<{},
               Giờ hoàng đạo : {this.getGioHoangDao(jd)}
             </div>
 
-            <Calendar onDateChanged={this.onDateChanged} selectedDate={selectedDate} />
           </div>
+          <Calendar onDateChanged={this.onDateChanged} selectedDate={selectedDate}/>
         </div>
       </div>
     );
   }
-  private getGioHoangDao(jd: number) {
+  private getGioHoangDao(jd : number) {
     const chiOfDay = (jd + 1) % 12;
     const GIO_HD = new Array("110100101100", "001101001011", "110011010010", "101100110100", "001011001101", "010010110011");
     const gioHD = GIO_HD[chiOfDay % 6]; // same values for Ty' (1) and Ngo. (6), for Suu and Mui etc.
@@ -128,8 +126,8 @@ class App extends React.Component<{},
     return ret;
   }
 
-  private jdFromDate(dd: number, mm: number, yy: number) {
-    const INT = (n: number) => Math.floor(n);
+  private jdFromDate(dd : number, mm : number, yy : number) {
+    const INT = (n : number) => Math.floor(n);
     const a = INT((14 - mm) / 12);
     const y = yy + 4800 - a;
     const m = mm + 12 * a - 3;
@@ -139,10 +137,10 @@ class App extends React.Component<{},
     }
     return jd;
   }
-  private getCanHour0(jdn: number) {
+  private getCanHour0(jdn : number) {
     return CAN[(jdn - 1) * 2 % 10];
   }
-  private getYearCanChi(year: number) {
+  private getYearCanChi(year : number) {
     return CAN[(year + 6) % 10] + " " + CHI[(year + 8) % 12];
   }
 }

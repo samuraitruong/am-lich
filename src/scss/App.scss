@@ -25,6 +25,9 @@
   @include breakpoint(mobileonly) {
     padding: 0.25rem;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__red {
