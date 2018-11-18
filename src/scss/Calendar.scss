@@ -20,7 +20,8 @@ $red: rgb(243, 31, 31);
         color: #444;
 
         @include breakpoint(mobileonly) {
-            height: 42px;
+            height: 44px;
+            padding: 3px;
         }
 
         &__out-of-range {
