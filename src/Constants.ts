@@ -64,3 +64,12 @@ export const SEASONS = [
     "Tiểu hàn",
     "Đại hàn"
 ]
+export const dayOfWeeks = [
+    "Chủ nhật",
+    "Thứ hai",
+    "Thứ ba",
+    "Thứ tư",
+    "Thứ năm",
+    "Thứ sáu",
+    "Thứ bảy"
+]

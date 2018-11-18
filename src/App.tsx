@@ -5,6 +5,7 @@ import rightIcon from "./images/if_basics-06_296832.svg";
 import {
   CAN,
   CHI,
+  dayOfWeeks,
   MONTHS,
   SEASONS
   } from "./Constants";
@@ -72,18 +73,16 @@ IAppState > {
 
     </div>
   }
+  public selectMonth(month : number) {
+    const selectedDate = new Date(this.state.selectedDate);
+    selectedDate.setMonth(month - 1);
+    selectedDate.setDate(1);
+    this.setState({selectedDate, showMonth: false});
+  }
   public render() {
     const selectedDate = this.state.selectedDate;
     const ln = convertSolar2Lunar(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear(), 7);
-    const dayOfWeeks = [
-      "Chủ nhật",
-      "Thứ hai",
-      "Thứ ba",
-      "Thứ tư",
-      "Thứ năm",
-      "Thứ sáu",
-      "Thứ bảy"
-    ]
+
     // const jd = ln.toJd; console.log(jd);
     const jd = this.jdFromDate(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear());
     const thang = CAN[(ln.year * 12 + ln.month + 3) % 10] + " " + CHI[(ln.month + 1) % 12];
@@ -98,10 +97,14 @@ IAppState > {
     return (
       <div className="app">
         {this.state.showMonth && <div className="month-selector">
-          {this
+          <span className="arrow"/> {this
             .state
             .months
-            .map((x) => <div key={x}>{x}</div>)}
+            .map((x) => <div
+              key={x}
+              onClick={this
+              .selectMonth
+              .bind(this, x)}>T - {x}</div>)}
         </div>}
         <div className={"calendar " + className}>
           <div className="calendar--header">
