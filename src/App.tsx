@@ -10,19 +10,46 @@ import {
   } from "./Constants";
 import { convertSolar2Lunar, sunLongitude } from "lunardate";
 import "./scss/App.css";
+import "./scss/month-select.css";
 interface IAppState {
   selectedDate : Date;
+  months : number[];
+  showMonth : boolean;
 }
 class App extends React.Component < {},
 IAppState > {
   constructor(props : any) {
     super(props);
     this.state = {
-      selectedDate: new Date()
-    }
+
+      months: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      selectedDate: new Date(),
+      showMonth: false
+    };
+    this.toggleMonth = this
+      .toggleMonth
+      .bind(this);
     this.onDateChanged = this
       .onDateChanged
       .bind(this);
+  }
+  public toggleMonth() {
+    this.setState({
+      showMonth: !this.state.showMonth
+    });
   }
   public onDateChanged(selectedDate : Date) {
     this.setState({selectedDate: new Date(selectedDate)})
@@ -33,9 +60,20 @@ IAppState > {
       selectedDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
     });
   }
+  public renderTitle(selectedDate : Date) {
+    return <div>
+      <span>Tháng</span>
+      <span onClick={this.toggleMonth}>
+        {selectedDate.getMonth() + 1}
+      </span>
+      <span>năm</span>
+      <span>
+        {selectedDate.getFullYear()}</span>
+
+    </div>
+  }
   public render() {
     const selectedDate = this.state.selectedDate;
-    console.log("selected date", selectedDate);
     const ln = convertSolar2Lunar(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear(), 7);
     const dayOfWeeks = [
       "Chủ nhật",
@@ -57,9 +95,14 @@ IAppState > {
       .getDay() === 0
       ? "calendar__red"
       : ""
-    const title = `Tháng ${selectedDate.getMonth() + 1} năm ${selectedDate.getFullYear()}`
     return (
       <div className="app">
+        {this.state.showMonth && <div className="month-selector">
+          {this
+            .state
+            .months
+            .map((x) => <div key={x}>{x}</div>)}
+        </div>}
         <div className={"calendar " + className}>
           <div className="calendar--header">
             <img
@@ -67,7 +110,7 @@ IAppState > {
               src={leftIcon}
               onClick={this
               .changeMonth
-              .bind(this, -1)}/> {title}
+              .bind(this, -1)}/> {this.renderTitle(selectedDate)}
             <img
               src={rightIcon}
               className="calendar--header--icon"

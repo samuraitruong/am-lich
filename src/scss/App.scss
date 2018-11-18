@@ -39,6 +39,10 @@
     display: flex;
     justify-content: space-between;
 
+    span {
+      margin: 0px 3px;
+    }
+
     @include breakpoint(mobileonly) {
       font-size: 1.5rem;
       padding-top: 0.35rem;
