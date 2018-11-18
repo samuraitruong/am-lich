@@ -76,6 +76,11 @@
       margin-top: 0.25rem;
     }
 
+    @include breakpoint(iphonex) {
+      font-size: 10rem;
+      margin-top: 0.25rem;
+    }
+
     &--weekday {
       font-size: 3rem;
       margin-top: 1rem;
@@ -123,6 +128,10 @@
       @include breakpoint(mobileonly) {
         margin-top: 0.25rem;
       }
+
+      @include breakpoint(iphonex) {
+        margin-top: 0.75rem;
+      }
     }
   }
 }
@@ -142,5 +151,9 @@
 
   @include breakpoint(mobileonly) {
     font-size: 2.5rem;
+  }
+
+  @include breakpoint(iphonex) {
+    font-size: 5rem;
   }
 }

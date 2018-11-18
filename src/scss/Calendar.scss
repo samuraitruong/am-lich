@@ -10,6 +10,10 @@ $red: rgb(243, 31, 31);
         margin-top: 0.35rem;
     }
 
+    @include breakpoint(iphonex) {
+        margin-bottom: 1.5rem;
+    }
+
     &--cell {
         box-sizing: border-box;
         width: (100%/7);
