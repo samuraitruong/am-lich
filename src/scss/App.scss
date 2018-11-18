@@ -21,6 +21,7 @@
   padding: 1.5rem;
   padding-bottom: 3rem;
   background: #fff;
+  position: relative;
 
   @include breakpoint(mobileonly) {
     padding: 0.25rem;

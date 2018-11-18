@@ -1,0 +1,30 @@
+.year-selector {
+    position: absolute;
+    top: 40px;
+    padding: 1rem;
+    background: #999;
+    xwidth: 100%;
+    left: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .arrow {
+        position: absolute;
+        top: -8px;
+        right: 30%;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+        background: #999;
+    }
+
+    &--year {
+        font-size: 1.7rem;
+        color: #555;
+        background: #fff;
+        border-radius: 5px;
+        margin: 0.25rem;
+        cursor: pointer;
+    }
+}

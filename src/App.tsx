@@ -1,7 +1,9 @@
 import * as React from "react";
 import Calendar from "./Calendar";
 import leftIcon from "./images/if_basics-05_296830.svg";
+import MonthSelector from "./MonthSelector";
 import rightIcon from "./images/if_basics-06_296832.svg";
+import YearSelector from "./YearSelector";
 import {
   CAN,
   CHI,
@@ -11,11 +13,10 @@ import {
   } from "./Constants";
 import { convertSolar2Lunar, sunLongitude } from "lunardate";
 import "./scss/App.css";
-import "./scss/month-select.css";
 interface IAppState {
   selectedDate : Date;
-  months : number[];
   showMonth : boolean;
+  showYear : boolean;
 }
 class App extends React.Component < {},
 IAppState > {
@@ -23,22 +24,9 @@ IAppState > {
     super(props);
     this.state = {
 
-      months: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
       selectedDate: new Date(),
-      showMonth: false
+      showMonth: false,
+      showYear: false
     };
     this.toggleMonth = this
       .toggleMonth
@@ -46,12 +34,26 @@ IAppState > {
     this.onDateChanged = this
       .onDateChanged
       .bind(this);
+    this.selectMonth = this
+      .selectMonth
+      .bind(this);
+    this.selectYear = this
+      .selectYear
+      .bind(this);
   }
   public toggleMonth() {
     this.setState({
-      showMonth: !this.state.showMonth
+      showMonth: !this.state.showMonth,
+      showYear: false
     });
   }
+  public toggleYear() {
+    this.setState({
+      showMonth: false,
+      showYear: !this.state.showYear
+    });
+  }
+
   public onDateChanged(selectedDate : Date) {
     this.setState({selectedDate: new Date(selectedDate)})
   }
@@ -68,17 +70,26 @@ IAppState > {
         {selectedDate.getMonth() + 1}
       </span>
       <span>năm</span>
-      <span>
+      <span onClick={this
+        .toggleYear
+        .bind(this, null)}>
         {selectedDate.getFullYear()}</span>
 
     </div>
   }
   public selectMonth(month : number) {
     const selectedDate = new Date(this.state.selectedDate);
-    selectedDate.setMonth(month - 1);
+    selectedDate.setMonth(month);
     selectedDate.setDate(1);
-    this.setState({selectedDate, showMonth: false});
+    this.setState({selectedDate, showMonth: false, showYear: false});
   }
+  public selectYear(year : number) {
+    const selectedDate = new Date(this.state.selectedDate);
+    selectedDate.setFullYear(year);
+    selectedDate.setDate(1);
+    this.setState({selectedDate, showMonth: false, showYear: false});
+  }
+
   public render() {
     const selectedDate = this.state.selectedDate;
     const ln = convertSolar2Lunar(selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear(), 7);
@@ -96,17 +107,9 @@ IAppState > {
       : ""
     return (
       <div className="app">
-        {this.state.showMonth && <div className="month-selector">
-          <span className="arrow"/> {this
-            .state
-            .months
-            .map((x) => <div
-              key={x}
-              onClick={this
-              .selectMonth
-              .bind(this, x)}>T - {x}</div>)}
-        </div>}
         <div className={"calendar " + className}>
+          {this.state.showMonth && <MonthSelector onMonthChanged={this.selectMonth}/>}
+          {this.state.showYear && <YearSelector onYearChanged={this.selectYear}/>}
           <div className="calendar--header">
             <img
               className="calendar--header--icon"
