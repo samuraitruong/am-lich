@@ -1,8 +1,14 @@
+@import "./share";
+
 .month-selector {
     position: absolute;
-    top: 40px;
+    top: 80px;
     padding: 1rem 3.5rem;
     background: #999;
+
+    @include breakpoint(mobileonly) {
+        top: 45px;
+    }
 
     .arrow {
         position: absolute;

@@ -18,7 +18,7 @@ export const CAN = [
     "Bính",
     "Đinh",
     "Mậu",
-    "Kỳ",
+    "Kỷ",
     "Canh",
     "Tân",
     "Nhâm",

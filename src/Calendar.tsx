@@ -2,25 +2,25 @@ import * as React from "react";
 import { convertSolar2Lunar, LunarDate } from "lunardate";
 import "./scss/Calendar.css";
 interface ICalendarState {
-    dates: ICalendarDate[]
+    dates : ICalendarDate[]
 }
 interface ICalendarDate {
-    date: Date;
+    date : Date;
     lunar?: LunarDate
 }
 interface ICalendarProps {
-    onDateChanged: (date: Date) => void;
-    selectedDate: Date
+    onDateChanged : (date : Date) => void;
+    selectedDate : Date
 }
-export default class Calendar extends React.Component<ICalendarProps,
-    ICalendarState> {
-    constructor(props: ICalendarProps) {
+export default class Calendar extends React.Component < ICalendarProps,
+ICalendarState > {
+    constructor(props : ICalendarProps) {
         super(props);
         this.state = {
             dates: this.getDates(new Date())
         }
     }
-    public getMonday(d: Date) {
+    public getMonday(d : Date) {
         const date = new Date(d);
         if (d.getDay() === 1) {
             return d;
@@ -37,10 +37,10 @@ export default class Calendar extends React.Component<ICalendarProps,
 
     }
 
-    public getDates(date: Date): ICalendarDate[] {
+    public getDates(date : Date) : ICalendarDate[] {
         console.log("============================================");
         console.log("input", date.toISOString(), date.toLocaleDateString())
-        const list: ICalendarDate[] = [];
+        const list : ICalendarDate[] = [];
         const firstDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
         let currentDate = this.getMonday(firstDate);
         console.log("Monday ", currentDate.toLocaleDateString())
@@ -51,13 +51,13 @@ export default class Calendar extends React.Component<ICalendarProps,
         console.log("current", currentDate.toISOString(), currentDate.toLocaleDateString());
         while (currentDate < firstDateNextMonth) {
 
-            list.push({ date: new Date(currentDate) })
+            list.push({date: new Date(currentDate)})
             currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
         }
 
         return list; // .slice(0, list.length - 1);
     }
-    public onDateSelected(date: Date) {
+    public onDateSelected(date : Date) {
         if (date.getMonth() !== this.props.selectedDate.getMonth()) {
             return;
         }
@@ -65,21 +65,29 @@ export default class Calendar extends React.Component<ICalendarProps,
             .props
             .onDateChanged(date);
     }
-    public componentWillReceiveProps(props: ICalendarProps) {
+    public componentWillReceiveProps(props : ICalendarProps) {
         const dates = this.getDates(props.selectedDate);
-        this.setState({ dates });
+        this.setState({dates});
     }
-    public renderDate(date: Date) {
+    public renderDate(date : Date) {
         const lunar = convertSolar2Lunar(date.getDate(), date.getMonth() + 1, date.getFullYear(), 7);
         const className = date.getDay() === 0
             ? "__red"
             : "";
+        const extraClass = lunar.day === 1 || lunar.day === 15
+            ? " calendar-table--cell--lunar__red"
+            : "";
+        const lunarText = lunar.day === 1
+            ? `${lunar.day}/${lunar.month}`
+            : lunar
+                .day
+                .toString()
         return (
             <span>
                 <span
                     className={"calendar-table--cell--solar calendar-table--cell--solar" + className}>{date.getDate()}</span>
                 <span
-                    className={"calendar-table--cell--lunar calendar-table--cell--lunar" + className}>{lunar.day}</span>
+                    className={"calendar-table--cell--lunar calendar-table--cell--lunar" + className + extraClass}>{lunarText}</span>
             </span>
         )
     }
@@ -99,18 +107,18 @@ export default class Calendar extends React.Component<ICalendarProps,
                     .dates
                     .map((x) => <div
                         onClick={this
-                            .onDateSelected
-                            .bind(this, x.date)}
+                        .onDateSelected
+                        .bind(this, x.date)}
                         className={"calendar-table--cell" + (this.props.selectedDate.getDate() === x.date.getDate()
-                            ? " calendar-table--cell__selected"
-                            : "") + (x.date.getDay() === 0
-                                ? " calendar-table--cell__red"
-                                : "") + (x.date.getMonth() !== this.props.selectedDate.getMonth()
-                                    ? " calendar-table--cell__out-of-range"
-                                    : "")}
+                        ? " calendar-table--cell__selected"
+                        : "") + (x.date.getDay() === 0
+                        ? " calendar-table--cell__red"
+                        : "") + (x.date.getMonth() !== this.props.selectedDate.getMonth()
+                        ? " calendar-table--cell__out-of-range"
+                        : "")}
                         key={x
-                            .date
-                            .getTime()}>
+                        .date
+                        .getTime()}>
                         {this.renderDate(x.date)}
                     </div>)}
             </div>

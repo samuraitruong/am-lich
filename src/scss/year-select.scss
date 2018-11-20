@@ -1,13 +1,19 @@
+@import "./share";
+
 .year-selector {
     position: absolute;
-    top: 40px;
+    top: 80px;
     padding: 1rem;
     background: #999;
-    xwidth: 100%;
     left: 0px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    @include breakpoint(mobileonly) {
+        top: 40px;
+        padding: 0.35rem;
+    }
 
     .arrow {
         position: absolute;
@@ -17,14 +23,27 @@
         height: 20px;
         transform: rotate(45deg);
         background: #999;
+
+        @include breakpoint(mobileonly) {
+            top: -4px;
+            right: 30%;
+            width: 10px;
+            height: 10px;
+        }
     }
 
     &--year {
-        font-size: 1.7rem;
+        font-size: 1.3rem;
         color: #555;
         background: #fff;
         border-radius: 5px;
         margin: 0.25rem;
+        height: 3.5rem;
         cursor: pointer;
+
+        @include breakpoint(mobileonly) {
+            height: 2.5rem;
+            margin: 0.2rem;
+        }
     }
 }
