@@ -4,8 +4,6 @@ pipeline {
     stage('install') {
       steps {
         nodejs(nodeJSInstallationName: 'latest', configId: '') {
-          sh 'npm config ls'
-          sh 'npm install'
           sh 'node -v'
         }
       }
